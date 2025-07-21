@@ -3,15 +3,16 @@ import type { ICurrency } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { dayjs } from "@/lib/dayjs";
-import { _ } from "@/lib/lodash";
 
 const fetchPrices = async (): Promise<ICurrency[]> => {
+  // Simulate delay using a Promise
+  await new Promise((resolve) => setTimeout(resolve, 1500));
+
   const { data } = await axios.get<ICurrency[]>(
     "https://interview.switcheo.com/prices.json"
   );
 
-  // Sort by date then only get the newest price for each currency
-
+  // Sort by date, keeping only the latest entry for each currency
   const latestPrices: Record<string, ICurrency> = {};
   data.forEach((item) => {
     const existing = latestPrices[item.currency];
@@ -21,7 +22,7 @@ const fetchPrices = async (): Promise<ICurrency[]> => {
   });
 
   // Convert the object back to an array
-  return _.values(latestPrices);
+  return Object.values(latestPrices);
 };
 
 export function usePrices() {
