@@ -54,16 +54,9 @@ export function CurrencySwapForm() {
   };
 
   const onSubmit = (values: FormValues) => {
-    console.log("✅ Submitted:", values);
-
     const fromCurrency = values.fromCurrency;
     const toCurrency = values.toCurrency;
     const fromAmount = values.fromAmount;
-    console.log(
-      "🚀 ~ onSubmit ~ data?.find((c) => c.currency === fromCurrency)?.price :",
-      data?.find((c) => c.currency === fromCurrency)?.price,
-      data?.find((c) => c.currency === toCurrency)?.price
-    );
 
     const toAmount = calculateToAmount({
       fromAmount,
